@@ -1,0 +1,9 @@
+apiVersion: messaging.knative.dev/v1
+kind: Channel
+metadata:
+  name: natss-channel
+  namespace: default
+spec:
+  channelTemplate:
+    apiVersion: messaging.knative.dev/v1alpha1
+    kind: NatsJetStreamChannel

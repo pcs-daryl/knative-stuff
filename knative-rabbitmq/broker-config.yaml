@@ -6,4 +6,6 @@ spec:
   rabbitmqClusterReference:
     # Configure connectionSecret if an external RabbitMQ cluster is being used.
     name: rabbitmqcluster-sample
+    # connectionSecret:
+    #   name: rabbitmqcluster-sample-default-user
   queueType: quorum
