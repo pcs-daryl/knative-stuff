@@ -1,0 +1,7 @@
+kubectl run nats-client --rm -it --image=synadia/nats-box --restart=Never --
+
+nats consumer add --server nats://10.96.204.145:4222 --deliver=all
+
+nats consumer next --server nats://10.96.204.145:4222 KN_DEFAULT__SEQUENCE_KN_SEQUENCE_0  daryl --ack
+
+nats stream rm --server nats://10.96.204.145:4222 KN_DEFAULT__SEQUENCE_KN_SEQUENCE_1
