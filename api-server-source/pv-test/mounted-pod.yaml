@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-with-desktop
+spec:
+  containers:
+    - name: nginx
+      image: nginx:latest
+      ports:
+        - containerPort: 80
+      volumeMounts:
+        - mountPath: /desktop
+          name: desktop-volume
+  volumes:
+    - name: desktop-volume
+      persistentVolumeClaim:
+        claimName: desktop-pvc
