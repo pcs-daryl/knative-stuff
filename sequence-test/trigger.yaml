@@ -1,0 +1,40 @@
+apiVersion: eventing.knative.dev/v1
+kind: Trigger
+metadata:
+  name: sequence-trigger
+spec:
+  broker: knative-rabbitmq-broker
+  filter:
+    attributes:
+      type: dev.knative.sources.ping
+  subscriber:
+    ref:
+      apiVersion: flows.knative.dev/v1
+      kind: Sequence
+      name: sequence
+---
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: sequence-display
+spec:
+  template:
+    spec:
+      containers:
+        - image: gcr.io/knative-releases/knative.dev/eventing/cmd/event_display
+---
+apiVersion: eventing.knative.dev/v1
+kind: Trigger
+metadata:
+  name: display-trigger
+spec:
+  broker: knative-rabbitmq-broker
+  filter:
+    attributes:
+      type: samples.http.mod3
+  subscriber:
+    ref:
+      apiVersion: serving.knative.dev/v1
+      kind: Service
+      name: sequence-display
+---
