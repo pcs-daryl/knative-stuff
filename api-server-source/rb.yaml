@@ -1,13 +1,11 @@
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
-  name: test-rb
-  namespace: daryl
+  name: api-rb
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
-  name: test-role
+  name: api-role
 subjects:
   - kind: ServiceAccount
-    name: k8s-test
-    namespace: daryl
+    name: daryl-test-api
