@@ -1,0 +1,19 @@
+apiVersion: sources.knative.dev/v1
+kind: ApiServerSource
+metadata:
+  name: crd-server-source
+  namespace: default
+spec:
+  serviceAccountName: daryl-test-crd
+  mode: Resource
+  resources:
+    - apiVersion: serving.knative.dev/v1
+      kind: Service
+  sink:
+    ref:
+      apiVersion: v1
+      kind: Service
+      name: event-display
+  namespaceSelector:
+    matchLabels:
+      kubernetes.io/metadata.name: default
