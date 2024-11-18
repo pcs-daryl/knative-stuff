@@ -3,10 +3,6 @@ kind: ApiServerSource
 metadata:
   name: api-server-source
   namespace: default
-status:
-  namespaces:
-    - default
-    - test-api
 spec:
   serviceAccountName: daryl-test-api
   mode: Resource
