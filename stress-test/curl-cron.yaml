@@ -1,0 +1,41 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: curl-knative-cron
+spec:
+  schedule: "* * * * *" # Runs every minute
+  successfulJobsHistoryLimit: 1 # Retain 3 successful Jobs
+  failedJobsHistoryLimit: 1 # Retain 1 failed Job
+  jobTemplate:
+    spec:
+      parallelism: 10 # Number of Pods running concurrently
+      ttlSecondsAfterFinished: 300 # Cleanup Pods 5 minutes after completion
+      template:
+        spec:
+          containers:
+            - name: curl-container
+              image: debian:bookworm-slim
+              command:
+                - /bin/sh
+                - -c
+                - |
+                  apt-get update && apt-get install -y curl uuid-runtime && \
+                  for i in $(seq 1 100); do
+                    echo "Sending 100 messages in this batch";
+                    for j in $(seq 1 100); do
+                      curl -X POST $KNATIVE_SERVICE_URL \
+                        -H "Content-Type: application/json" \
+                        -H "Ce-Specversion: 1.0" \
+                        -H "Ce-Type: com.example.event" \
+                        -H "Ce-Source: /my-source" \
+                        -H "Ce-Id: $(uuidgen)" \
+                        -d '{"message": "Hello World"}' &
+                    done;
+                    wait; # Wait for all 100 parallel requests to complete
+                    sleep 0.1; # Delay to match the 1000 requests per second rate
+                  done
+              env:
+                - name: KNATIVE_SERVICE_URL
+                  # value: "http://prime-generator.default.svc.cluster.local"
+                  value: "http://event-display.default.svc.cluster.local"
+          restartPolicy: Never
