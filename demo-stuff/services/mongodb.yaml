@@ -1,0 +1,9 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: knative-mongodb
+spec:
+  template:
+    spec:
+      containers:
+        - image: index.docker.io/darylang96/knative-mongodb:latest

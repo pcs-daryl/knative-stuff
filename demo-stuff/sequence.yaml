@@ -1,0 +1,24 @@
+apiVersion: flows.knative.dev/v1
+kind: Sequence
+metadata:
+  name: comments-sequence
+spec:
+  channelTemplate:
+    apiVersion: messaging.knative.dev/v1
+    kind: InMemoryChannel
+  steps:
+    - ref:
+        # clean the data
+        apiVersion: serving.knative.dev/v1
+        kind: Service
+        name: knative-data-cleaning-test
+    - ref:
+        # pass through mongo db adaptor
+        apiVersion: serving.knative.dev/v1
+        kind: Service
+        name: knative-mongo-comments-adaptor
+    - ref:
+        # store in db
+        apiVersion: serving.knative.dev/v1
+        kind: Service
+        name: knative-mongodb

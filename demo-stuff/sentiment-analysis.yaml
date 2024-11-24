@@ -1,9 +1,0 @@
-apiVersion: serving.knative.dev/v1
-kind: Service
-metadata:
-  name: knative-data-cleaning-test
-spec:
-  template:
-    spec:
-      containers:
-        - image: index.docker.io/darylang96/knative-sentiment-analysis:latest
