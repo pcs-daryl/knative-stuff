@@ -1,0 +1,24 @@
+apiVersion: flows.knative.dev/v1
+kind: Parallel
+metadata:
+  name: display-parallel
+spec:
+  channelTemplate:
+    apiVersion: messaging.knative.dev/v1
+    kind: InMemoryChannel
+  branches:
+    - subscriber:
+        ref:
+          apiVersion: serving.knative.dev/v1
+          kind: Service
+          name: event-display-2
+    - subscriber:
+        ref:
+          apiVersion: serving.knative.dev/v1
+          kind: Service
+          name: event-display-3
+  reply:
+    ref:
+      apiVersion: serving.knative.dev/v1
+      kind: Service
+      name: event-display
