@@ -4,6 +4,10 @@ metadata:
   name: knative-mongodb
 spec:
   template:
+    metadata:
+      annotations:
+        autoscaling.knative.dev/metric: "rps"
+        autoscaling.knative.dev/target: "100"
     spec:
       containers:
         - image: index.docker.io/darylang96/knative-mongodb:latest
