@@ -13,6 +13,16 @@ spec:
         kind: Service
         name: knative-data-cleaning-test
     - ref:
+        # identify bad words
+        apiVersion: serving.knative.dev/v1
+        kind: Service
+        name: bad-word-filter
+    - ref:
+        # do sentiment analysis
+        apiVersion: serving.knative.dev/v1
+        kind: Service
+        name: sentiment-analysis-app
+    - ref:
         # pass through mongo db adaptor
         apiVersion: serving.knative.dev/v1
         kind: Service
