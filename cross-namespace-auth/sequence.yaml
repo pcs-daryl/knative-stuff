@@ -1,0 +1,31 @@
+apiVersion: flows.knative.dev/v1
+kind: Sequence
+metadata:
+  name: sequence
+  namespace: some-other-namespace
+spec:
+  channelTemplate:
+    apiVersion: messaging.knative.dev/v1
+    kind: InMemoryChannel
+  steps:
+    - ref:
+        apiVersion: serving.knative.dev/v1
+        kind: Service
+        name: first
+        namespace: first-namespace
+    - ref:
+        apiVersion: serving.knative.dev/v1
+        kind: Service
+        name: second
+        namespace: second-namespace
+    - ref:
+        apiVersion: serving.knative.dev/v1
+        kind: Service
+        name: third
+        namespace: third-namespace
+  reply:
+    ref:
+      kind: Broker
+      apiVersion: eventing.knative.dev/v1
+      name: knative-rabbitmq-broker
+      namespace: default
