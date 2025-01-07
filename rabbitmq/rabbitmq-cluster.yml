@@ -2,5 +2,7 @@ apiVersion: rabbitmq.com/v1beta1
 kind: RabbitmqCluster
 metadata:
   name: rabbitmqcluster-sample
+  annotations:
+    rabbitmq.com/topology-allowed-namespaces: "*"
 spec:
   replicas: 1

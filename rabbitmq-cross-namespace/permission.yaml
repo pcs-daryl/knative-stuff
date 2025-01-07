@@ -1,0 +1,15 @@
+apiVersion: rabbitmq.com/v1beta1
+kind: Permission
+metadata:
+  name: first-permission
+  namespace: first-namespace
+spec:
+  vhost: "first"
+  user: "first-user" # name of the RabbitMQ user
+  permissions:
+    write: ".*"
+    configure: ".*"
+    read: ".*"
+  rabbitmqClusterReference:
+    name: rabbitmqcluster-sample
+    namespace: default

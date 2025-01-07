@@ -1,0 +1,10 @@
+apiVersion: rabbitmq.com/v1beta1
+kind: Vhost
+metadata:
+  name: first-vhost
+  namespace: first-namespace
+spec:
+  name: first
+  rabbitmqClusterReference:
+    name: rabbitmqcluster-sample
+    namespace: default
