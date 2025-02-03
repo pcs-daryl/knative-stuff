@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: first-namespace
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: second-namespace
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: third-namespace
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: some-other-namespace
+

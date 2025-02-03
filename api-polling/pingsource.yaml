@@ -1,0 +1,15 @@
+apiVersion: sources.knative.dev/v1
+kind: PingSource
+metadata:
+  name: test-api-ping
+  namespace: default
+spec:
+  schedule: "*/1 * * * *"
+  contentType: "application/json"
+  data: '{"API_URL": "https://api.data.gov.sg/v1/transport/traffic-images"}'
+  sink:
+    ref:
+      apiVersion: serving.knative.dev/v1
+      kind: Service
+      name: knative-api-adaptor
+      namespace: default
