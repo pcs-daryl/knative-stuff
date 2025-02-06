@@ -6,4 +6,4 @@ spec:
   template:
     spec:
       containers:
-        - image: index.docker.io/darylang96/knative-api-adaptor:latest
+        - image: hbr01.devnet3.staging/test-images/knative-api-adaptor:latest

@@ -1,9 +1,9 @@
 apiVersion: serving.knative.dev/v1
 kind: Service
 metadata:
-  name: event-display
+  name: event-display2
 spec:
   template:
     spec:
       containers:
-        - image: gcr.io/knative-releases/knative.dev/eventing/cmd/event_display
+        - image: hbr01.devnet3.staging/cots/knative/eventing/cmd/event_display:1.7.2
