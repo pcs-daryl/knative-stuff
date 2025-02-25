@@ -1,0 +1,9 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: sentiment-analysis-app-array
+spec:
+  template:
+    spec:
+      containers:
+        - image: hbr01.devnet3.staging/test-images/knative-sentiment-analysis:latest

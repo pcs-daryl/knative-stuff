@@ -7,16 +7,18 @@ spec:
   config: |
     receivers:
       zipkin:
+      otlp:
+        protocols:
+          grpc:
     exporters:
       logging:
       jaeger:
-        endpoint: "simplest-collector.observability:14250"
-        tls:
-          insecure: true
+        endpoint: "simplest-collector.observability.svc.cluster.local:14250"
+        insecure: true
 
     service:
       pipelines:
         traces:
-          receivers: [zipkin]
+          receivers: [zipkin, otlp]
           processors: []
           exporters: [logging, jaeger]
