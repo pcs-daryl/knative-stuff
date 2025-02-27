@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: test-deployment-project
+  namespace: argocd  # Ensure this matches your ArgoCD installation namespace
+spec:
+  description: "Project for test-deployment"
+  sourceRepos:
+    - '*'  # Allow applications to be sourced from any repository
+  destinations:
+    - namespace: '*'
+      server: '*'  # Allow deployments to any cluster and namespace
+  clusterResourceWhitelist:
+    - group: '*'
+      kind: '*'  # Allow all cluster-scoped resources
+  namespaceResourceWhitelist:
+    - group: '*'
+      kind: '*'  # Allow all namespaced resources

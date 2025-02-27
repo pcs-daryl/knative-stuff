@@ -7,7 +7,7 @@ spec:
   destination:
     namespace: default
     server: https://172.20.11.183:6443
-  project: default
+  project: test-deployment-project
   source:
     path: aaaas/americano-operator/overlay/dev
     repoURL: http://gitea-http.gitea.svc.cluster.local:3000/aaaas/manifests

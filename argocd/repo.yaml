@@ -10,6 +10,6 @@ stringData:
   url: http://gitea-http.gitea.svc.cluster.local:3000/aaaas/manifests
   password: d64df99995dd8d4b70f8bef7b48d033cd16ac6da
   username: mocha_bot
-  project: default
+  project: test-deployment-project
   insecure: "true" # Ignore validity of server's TLS certificate. Defaults to "false"
   forceHttpBasicAuth: "true" # Skip auth method negotiation and force usage of HTTP basic auth. Defaults to "false"
