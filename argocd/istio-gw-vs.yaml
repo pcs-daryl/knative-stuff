@@ -1,0 +1,81 @@
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: argocd-gateway
+  namespace: istio-system
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+  - hosts:
+    -  "argocd.mocha.dev.devnet3.staging"
+    port:
+      number: 80
+      name: http
+      protocol: HTTP
+    tls:
+      httpsRedirect: true
+  - hosts:
+      - "argocd.mocha.dev.devnet3.staging"
+    port:
+      number: 443
+      name: https
+      protocol: HTTPS
+    tls:
+      mode: SIMPLE
+      credentialName: argocd-cert
+
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: argocd-vs
+  namespace: argocd
+spec:
+  hosts:
+    - "argocd.mocha.dev.devnet3.staging"
+  gateways:
+    - istio-system/argocd-gateway
+  http:
+  - route:
+    - destination:
+        port:
+          number: 80
+        host: argocd-server.argocd.svc.cluster.local
+  - match:
+    - uri:
+        prefix: /
+    route:
+    - destination:
+        port:
+          number: 443
+        host: argocd-server.argocd.svc.cluster.local
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: argocd-cert
+  namespace: istio-system
+spec:
+  secretName: argocd-cert
+  dnsNames:
+  - argocd.mocha.dev.devnet3.staging
+  - argocd.mocha.svc.cluster.local
+  issuerRef:
+    name: devnet3-staging-issuer #TODO CHANGE
+    kind: ClusterIssuer
+  subject:
+    organizationalUnits:
+    - argocd-mocha-platform
+# ---
+# apiVersion: networking.istio.io/v1beta1
+# kind: DestinationRule
+# metadata:
+#   name: argocd
+#   namespace: argocd
+# spec:
+#   host: argocd-server.argocd.svc.cluster.local
+#   trafficPolicy:
+#     tls:
+#       mode: SIMPLE  # ✅ Ensures TLS is used
